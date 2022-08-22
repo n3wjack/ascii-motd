@@ -1,12 +1,20 @@
+<#
+.SYNOPSIS
+    Write some awesome ASCII art to the console.	
+.DESCRIPTION
+	Gets random ASCII art from the asciiart.eu site and prints it out in the console. You can specify the output color using the 'Color' parameter.
+.PARAMETER Color
+	The color to use to write the ASCII art.
+.EXAMPLE
+	.\Write-AsciiMotd.ps1 -Color Green
+#>
+
 [CmdletBinding()]
 param ([System.ConsoleColor]$Color=[System.ConsoleColor]::Cyan)
 
 $baseUrl = "https://www.asciiart.eu"
-
 $categories = "animals", "art-and-design", "books", "buildings-and-places", "cartoons", "clothing-and-accessories", "comics", "computers", "electronics", "food-and-drinks", "holiday-and-events", "logos", "miscellaneous", "movies", "music", "mythology", "nature", "people", "plants", "religion", "space", "sports-and-outdoors", "television", "toys", "vehicles", "video-games", "weapons"
 
-
-# Get the category homepage.
 $progressPreference = 'silentlyContinue'
 
 function Get-AsciiArt ($category) 
