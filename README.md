@@ -16,30 +16,40 @@ Here's how to do that:
 2. Clone the git repository somewhere, like your home folder:
 
 
-````powershell
+    ````powershell
     git clone https://github.com/n3wjack/ascii-motd.git
-````
+    ````
 
 3. Open your Powershell profile in your favorite text editor:
 
-````powershell
-gvim $PROFILE
-````
+    ````powershell
+    gvim $PROFILE
+    ````
 4. Call the script in your Powershell profile. If you used a different script location, you'll have to use that of course.
 
-````powershell
-~\ascii-motd\Write-AsciiMotd.ps1
-````
+    ````powershell
+    ~\ascii-motd\Write-AsciiMotd.ps1
+    ````
 
 That's it. Open a new Powershell console window to test if it works. You should now see some amazing ASCII art appear in the new window.
 
 ## Usage
 
-You can specify the color of the ASCII art to show using the Color command line parameter, like:
+Just run the script to get some random ASCII art:
+
+````powershell
+.\Write-AsciiMotd.ps1
+````
+
+You can also specify the color of the ASCII art to show using the `Color` command line parameter, like this:
  
 ````powershell
 .\Write-AsciiMotd.ps1 -Color LightGreen
 ````
-The colors are the ones you know from the `Write-Host` commandlet.
 
+The colors are the ones you know from the `Write-Host` commandlet. You can use tab-completion to see all the options.
+
+## License
+
+This project is licensed under the [MIT license](https://github.com/n3wjack/ascii-motd/blob/main/LICENSE).
 
