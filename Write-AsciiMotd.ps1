@@ -24,7 +24,7 @@ function Get-AsciiArt ($category)
 
     do {
         $url = "$baseUrl$categories"
-        $r = Invoke-WebRequest $url
+        $r = Invoke-WebRequest $url -TimeoutSec 4
 
         $subcategories = $r.Links | where { $_.Href -like "$categories/*" }
 
