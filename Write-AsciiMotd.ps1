@@ -24,16 +24,18 @@ function Get-AsciiArt ($category)
 
     do {
         $url = "$baseUrl$categories"
-        $r = Invoke-WebRequest $url -TimeoutSec 4
+        # Use basic parsing, to avoid security warning in PS on Win 11.
+        $r = Invoke-WebRequest $url -TimeoutSec 4 -UseBasicParsing
 
         $subcategories = $r.Links | where { $_.Href -like "$categories/*" }
-
         Write-Verbose "Found $($subcategories.Count) subcategories: $($subcategories.Href)"
 
         if ($subcategories.Count -eq 0) {
-            $preElements = $r.ParsedHtml.getElementsByTagName("PRE") | where { $_.className -notlike "*text-dark*" } 
-            Write-Verbose "Found $($preElements.Count) PRE elements."
-            $result = $preElements | Get-Random
+            # Get ASCII art element from HTML, without using unsafe methods on the Html object.
+            $parts = $r.Content -split '<div class="art-card__ascii">'
+            $asciiArt = $parts[1..$parts.length] | % { ($_ -split '</div>')[0] }
+            Write-Verbose "Found $($asciiArt.Count) ASCII art elements."
+            $result = $asciiArt | Get-Random
         } else {
             $categories = $subcategories.Href | Get-Random
             Write-Verbose "Categories set to '$categories'."
@@ -41,7 +43,7 @@ function Get-AsciiArt ($category)
     } while (($result -eq $null) -and ($subcategories.Count -gt 0))
 
     if ($result -ne $null) {
-        $art = $result.innerText
+        $art = [System.Net.WebUtility]::HtmlDecode($result)
     } else {
         $art = ""
     }
