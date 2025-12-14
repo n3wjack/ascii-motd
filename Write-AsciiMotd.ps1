@@ -1,6 +1,9 @@
 <#
 .SYNOPSIS
     Write some awesome ASCII art to the console.	
+    
+    https://github.com/n3wjack/ascii-motd
+
 .DESCRIPTION
 	Gets random ASCII art from the asciiart.eu site and prints it out in the console. You can specify the output color using the 'Color' parameter.
 .PARAMETER Color
